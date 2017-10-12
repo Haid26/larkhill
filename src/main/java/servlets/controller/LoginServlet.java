@@ -59,7 +59,12 @@ public class LoginServlet extends HttpServlet {
                     logger.info("User found with details="+user);
                     HttpSession session = request.getSession();
                     session.setAttribute("User", user);
-                    response.sendRedirect("home.jsp");;
+                    if(user.getRole().endsWith("Admin"))
+                        response.sendRedirect("register.html");
+                    else {
+                        response.sendRedirect("home.jsp");
+                        logger.info("redirect"+user.getRole());
+                    }
                 }else{
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
                     PrintWriter out= response.getWriter();

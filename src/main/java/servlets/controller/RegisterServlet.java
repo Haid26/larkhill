@@ -58,7 +58,7 @@ public class RegisterServlet extends HttpServlet {
                 logger.info("User registered with name="+name);
 
                 //forward to login page to login
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.html ");
                 PrintWriter out= response.getWriter();
                 out.println("<font color=green>Registration successful, please login below.</font>");
                 rd.include(request, response);
