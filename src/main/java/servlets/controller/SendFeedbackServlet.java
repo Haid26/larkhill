@@ -17,6 +17,8 @@ package servlets.controller;
 
         import org.apache.log4j.Logger;
 
+        import org.h2.engine.Session;
+        import util.Answers;
         import util.User;
 @WebServlet(name = "SendFeedback", urlPatterns = { "/SendFeedback" })
 public class SendFeedbackServlet extends HttpServlet {
@@ -39,9 +41,13 @@ public class SendFeedbackServlet extends HttpServlet {
             else
                 ps.setString(2, "false");
             ps.execute();
+            Answers ans = new Answers(true);
+            HttpSession session = request.getSession();
+            session.setAttribute("Answers", ans);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/peoplehome.jsp");
-            PrintWriter out= response.getWriter();
-            out.println("<font color=green>Feedback Succesfully send<br></font>");
+            //PrintWriter out= response.getWriter();
+
+           // out.println("<font color=green>Feedback Succesfully send<br></font>");
             rd.include(request, response);
         } catch (SQLException e) {
             logger.error("DBconnectionError");

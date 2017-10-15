@@ -18,7 +18,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import util.Answers;
 import util.Missions;
+@WebServlet(name = "RefreshMission", urlPatterns = { "/RefreshMission" })
 public class MissionDowloadListServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +31,7 @@ public class MissionDowloadListServlet extends HttpServlet{
         ResultSet rs = null;
         List<Missions> dataList = new ArrayList();
         try {
-            ps = con.prepareStatement("select id, desc, status from lark.missions ");
+            ps = con.prepareStatement("select * from lark.missions ");
             rs = ps.executeQuery();
             while (rs.next ()){
                 //Add records into data list
@@ -37,8 +39,10 @@ public class MissionDowloadListServlet extends HttpServlet{
                 dataList.add(tmp);
             }
             HttpSession session = request.getSession();
+            Answers ans = new Answers("RefreshMission");
+            session.setAttribute("Answers",ans);
             session.setAttribute("Missions",dataList);
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("solderhome.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("Database connection problem");

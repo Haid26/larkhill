@@ -78,7 +78,7 @@ public class AuthenticationFilter implements Filter {
                 }
                 if (user.getRole().endsWith("sol")) {
                     flag = true;
-                    if (!requesturl.endsWith("solderhome.jsp")) {
+                    if (!(requesturl.endsWith("solderhome.jsp")||requesturl.endsWith("RefreshMission"))) {
                         res.sendRedirect("solderhome.jsp");
                     } else
                         chain.doFilter(request, response);

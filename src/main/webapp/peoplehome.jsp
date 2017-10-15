@@ -1,4 +1,4 @@
-<%--
+<%@ page import="util.Answers" %><%--
   Created by IntelliJ IDEA.
   User: Evgeniy Karpov
   Date: 12.10.2017
@@ -11,12 +11,17 @@
     <title>People</title>
 </head>
 <body>
+<% Answers answer = (Answers) request.getSession().getAttribute("Answers");
+    if (answer.getAnwer()){%>
+<b1><font color=green>Feedback Succesfully send<br></font></b1>
+<% } else {%>
 <b1> Are you happy</b1>
 <form action="SendFeedback" method="post">
-    <p><input name="ask" type="radio" value="yes"> Yes</p>
+    <p><input name="ask" type="radio" value="yes" checked> Yes</p>
     <p><input name="ask" type="radio" value="no"> NO</p>
     <input type="submit" value="Send">
 </form>
+<% }%>
 <form action="Logout" method="post">
     <input type="submit" value="Logout" >
 </form>

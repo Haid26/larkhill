@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import util.Answers;
 import util.User;
 
 @WebServlet(name = "Login", urlPatterns = { "/Login" })
@@ -59,11 +60,13 @@ public class LoginServlet extends HttpServlet {
                     logger.info("User found with details="+user);
                     HttpSession session = request.getSession();
                     session.setAttribute("User", user);
+                    Answers ans = new Answers(false,"Login");
+                    session.setAttribute("Answers", ans);
                     if(user.getRole().endsWith("Admin"))
                         response.sendRedirect("register.html");
                     else {
                         response.sendRedirect("home.jsp");
-                        logger.info("redirect"+user.getRole());
+                        //logger.info("redirect"+user.getRole());
                     }
                 }else{
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
