@@ -59,52 +59,53 @@ public class AuthenticationFilter implements Filter {
                     res.sendRedirect("login.html");
                 }
             }
-            if(requesturl.endsWith("Logout"))
-                chain.doFilter(request,response);
-            if (user.getRole().endsWith("Admin")) {
-                flag = true;
-                if (!(requesturl.endsWith("register.html")|| requesturl.endsWith("Register"))) {
-                    res.sendRedirect("register.html");
-                } else
-                    chain.doFilter(request, response);
-            }
-            if (user.getRole().endsWith("gov")) { flag = true;
-                if(!requesturl.endsWith("govhome.jsp")) {
-                    res.sendRedirect("govhome.jsp");
-                }
-                else
-                    chain.doFilter(request,response);
-            }
-            if (user.getRole().endsWith("sol")) {
-                flag = true;
-                if (!requesturl.endsWith("solderhome.jsp")) {
-                    res.sendRedirect("solderhome.jsp");
-                } else
-                    chain.doFilter(request, response);
-            }
-            if (user.getRole().endsWith("sci")) {
-                flag = true;
-                if (!requesturl.endsWith("scientisthome.jsp")) {
-                    res.sendRedirect("scientishome.jsp");
-                } else
-                    chain.doFilter(request, response);
-            }
-            if (user.getRole().endsWith("sel")) {
-                flag = true;
-                if (!requesturl.endsWith("sellerhome.jsp")) {
-                    res.sendRedirect("sellerhome.jsp");
-                } else
-                    chain.doFilter(request, response);
-            }
-            if (user.getRole().endsWith("pep"))
-                {
+            if (requesturl.endsWith("Logout"))
+                chain.doFilter(request, response);
+            else {
+                if (user.getRole().endsWith("Admin")) {
                     flag = true;
-                    if (!requesturl.endsWith("peoplehome.jsp")) {
+                    if (!(requesturl.endsWith("register.html") || requesturl.endsWith("Register"))) {
+                        res.sendRedirect("register.html");
+                    } else
+                        chain.doFilter(request, response);
+                }
+                if (user.getRole().endsWith("gov")) {
+                    flag = true;
+                    if (!requesturl.endsWith("govhome.jsp")) {
+                        res.sendRedirect("govhome.jsp");
+                    } else
+                        chain.doFilter(request, response);
+                }
+                if (user.getRole().endsWith("sol")) {
+                    flag = true;
+                    if (!requesturl.endsWith("solderhome.jsp")) {
+                        res.sendRedirect("solderhome.jsp");
+                    } else
+                        chain.doFilter(request, response);
+                }
+                if (user.getRole().endsWith("sci")) {
+                    flag = true;
+                    if (!requesturl.endsWith("scientisthome.jsp")) {
+                        res.sendRedirect("scientishome.jsp");
+                    } else
+                        chain.doFilter(request, response);
+                }
+                if (user.getRole().endsWith("sel")) {
+                    flag = true;
+                    if (!requesturl.endsWith("sellerhome.jsp")) {
+                        res.sendRedirect("sellerhome.jsp");
+                    } else
+                        chain.doFilter(request, response);
+                }
+                if (user.getRole().endsWith("pep")) {
+                    flag = true;
+                    if (!(requesturl.endsWith("peoplehome.jsp") || requesturl.endsWith("Feedback"))) {
                         res.sendRedirect("peoplehome.jsp");
                     } else
                         chain.doFilter(request, response);
                 }
-            logger.info(user.getRole()+"and "+requesturl);
+                logger.info(user.getRole() + "and " + requesturl);
+            }
         }
         if(!flag)
             logger.error("flag ne vipal");

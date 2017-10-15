@@ -11,6 +11,12 @@
     <title>People</title>
 </head>
 <body>
+<b1> Are you happy</b1>
+<form action="SendFeedback" method="post">
+    <p><input name="ask" type="radio" value="yes"> Yes</p>
+    <p><input name="ask" type="radio" value="no"> NO</p>
+    <input type="submit" value="Send">
+</form>
 <form action="Logout" method="post">
     <input type="submit" value="Logout" >
 </form>
