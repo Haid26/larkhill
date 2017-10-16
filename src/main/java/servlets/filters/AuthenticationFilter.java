@@ -33,82 +33,114 @@ public class AuthenticationFilter implements Filter {
 
         String uri = req.getRequestURI();
         logger.info("Requested Resource::"+uri);
-        PrintWriter out= response.getWriter();
         StringBuffer url =  req.getRequestURL();
         String requesturl = url.toString();
         boolean flag = false;
         HttpSession session = req.getSession(false);
-        if (session == null) {
-            flag = true;
-            if (requesturl.endsWith("login.html") || requesturl.endsWith("Login")) {
-                chain.doFilter(request, response);
-            } else {
-                logger.error(requesturl);
-                res.sendRedirect("login.html");
-            }
+
+        if(requesturl.endsWith(".css") || requesturl.endsWith(".png")) {
+            chain.doFilter(request, response);
         }
         else {
-            User user = (User) session.getAttribute("User");
-            if (user == null) {
+            if (session == null) {
                 flag = true;
                 if (requesturl.endsWith("login.html") || requesturl.endsWith("Login")) {
                     chain.doFilter(request, response);
-
                 } else {
                     logger.error(requesturl);
                     res.sendRedirect("login.html");
                 }
-            }
-            if (requesturl.endsWith("Logout"))
-                chain.doFilter(request, response);
-            else {
-                if (user.getRole().endsWith("Admin")) {
+            } else {
+                User user = (User) session.getAttribute("User");
+                if (user == null) {
                     flag = true;
-                    if (!(requesturl.endsWith("register.html") || requesturl.endsWith("Register"))) {
-                        res.sendRedirect("register.html");
-                    } else
+                    if (requesturl.endsWith("login.html") || requesturl.endsWith("Login")) {
                         chain.doFilter(request, response);
+
+                    } else {
+                        logger.error(requesturl);
+                        res.sendRedirect("login.html");
+                    }
                 }
-                if (user.getRole().endsWith("gov")) {
-                    flag = true;
-                    if (!requesturl.endsWith("govhome.jsp")) {
-                        res.sendRedirect("govhome.jsp");
-                    } else
-                        chain.doFilter(request, response);
+                if (requesturl.endsWith("Logout"))
+                    chain.doFilter(request, response);
+                else {
+
+
+
+                    //                ADMiN
+                    if (user.getRole().endsWith("Admin")) {
+                        flag = true;
+                        if (!(requesturl.endsWith("register.html") || requesturl.endsWith("Register"))) {
+                            res.sendRedirect("register.html");
+                        } else
+                            chain.doFilter(request, response);
+                    }
+
+
+
+                    //              PARTY
+                    if (user.getRole().endsWith("gov")) {
+                        flag = true;
+                        if (!requesturl.endsWith("govhome.jsp")) {
+                            res.sendRedirect("govhome.jsp");
+                        } else
+                            chain.doFilter(request, response);
+                    }
+
+
+
+                    //                      SOLDER
+
+                    if (user.getRole().endsWith("sol")) {
+                        flag = true;
+                        if (!(requesturl.endsWith("solderhome.jsp") || requesturl.endsWith("RefreshMission") || requesturl.endsWith("MissionUpdate"))) {
+                            res.sendRedirect("solderhome.jsp");
+                        } else
+                            chain.doFilter(request, response);
+                    }
+
+
+
+                    //                      SCIENTIST
+
+                    if (user.getRole().endsWith("sci")) {
+                        flag = true;
+                        if (!(requesturl.endsWith("scientisthome.jsp")||requesturl.endsWith("RefreshProd")||requesturl.endsWith("UpdateProd"))) {
+                            res.sendRedirect("scientisthome.jsp");
+                        } else
+                            chain.doFilter(request, response);
+                    }
+
+
+
+                    //                    SELLER
+
+                    if (user.getRole().endsWith("sel")) {
+                        flag = true;
+                        if (!(requesturl.endsWith("sellerhome.jsp")|| requesturl.endsWith("RefreshProd")||requesturl.endsWith("UpdateProd"))) {
+                            res.sendRedirect("sellerhome.jsp");
+                        } else
+                            chain.doFilter(request, response);
+                    }
+
+
+
+                    //                    PEOPLE
+
+                    if (user.getRole().endsWith("pep")) {
+                        flag = true;
+                        if (!(requesturl.endsWith("peoplehome.jsp") || requesturl.endsWith("Feedback"))) {
+                            res.sendRedirect("peoplehome.jsp");
+                        } else
+                            chain.doFilter(request, response);
+                    }
+                    logger.info(user.getRole() + "and " + requesturl);
                 }
-                if (user.getRole().endsWith("sol")) {
-                    flag = true;
-                    if (!(requesturl.endsWith("solderhome.jsp")||requesturl.endsWith("RefreshMission"))) {
-                        res.sendRedirect("solderhome.jsp");
-                    } else
-                        chain.doFilter(request, response);
-                }
-                if (user.getRole().endsWith("sci")) {
-                    flag = true;
-                    if (!requesturl.endsWith("scientisthome.jsp")) {
-                        res.sendRedirect("scientishome.jsp");
-                    } else
-                        chain.doFilter(request, response);
-                }
-                if (user.getRole().endsWith("sel")) {
-                    flag = true;
-                    if (!requesturl.endsWith("sellerhome.jsp")) {
-                        res.sendRedirect("sellerhome.jsp");
-                    } else
-                        chain.doFilter(request, response);
-                }
-                if (user.getRole().endsWith("pep")) {
-                    flag = true;
-                    if (!(requesturl.endsWith("peoplehome.jsp") || requesturl.endsWith("Feedback"))) {
-                        res.sendRedirect("peoplehome.jsp");
-                    } else
-                        chain.doFilter(request, response);
-                }
-                logger.info(user.getRole() + "and " + requesturl);
             }
         }
-        if(!flag)
-            logger.error("flag ne vipal");
+        //if(!flag)
+            //logger.error("flag ne vipal");
         /*if(session == null && !(uri.endsWith("html") || uri.endsWith("Login"))){
             logger.error("Unauthorized access request");
             res.sendRedirect("login.html");

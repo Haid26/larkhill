@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="views/style.css" type="text/css" />
     <title>People</title>
 </head>
 <body>
+<header></header>
 <% Answers answer = (Answers) request.getSession().getAttribute("Answers");
     if (answer.getAnwer()){%>
 <b1><font color=green>Feedback Succesfully send<br></font></b1>

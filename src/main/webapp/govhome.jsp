@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="views/style.css" type="text/css" />
     <title>Government home</title>
 </head>
 <body>
+<header></header>
 <form action="Logout" method="post">
     <input type="submit" value="Logout" >
 </form>

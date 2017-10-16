@@ -12,9 +12,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="views/style.css" type="text/css" />
     <title>Solder home</title>
 </head>
 <body>
+<header></header>
 <form action="RefreshMission" method="get">
     <input type="submit" value="refresh list">
 </form>
@@ -29,6 +31,7 @@ if(mis.isEmpty()) {
 %>
 <b1> Mission list is empty, refresh mission list by pressing refresh list</b1>
 <%} else { %>
+
 <table>
     <!--:forEach var="mission" items="${mis.Missions}"-->
        <%
@@ -36,27 +39,36 @@ if(mis.isEmpty()) {
                 //System.out.println(iterator.next());
             %>
         <tr>
-            <td><%=mis.get(i).getId()%></td>
-            <td><%=mis.get(i).getDesc()%></td>
+            <td ><%=mis.get(i).getId()%></td>
+            <td ><%=mis.get(i).getDesc()%></td>
             <td><% if(mis.get(i).getStatus()==0) { %>
-                <select>
-                    <option selected>Created</option>
-                    <option>In progress</option>
-                    <option>Finished</option>
+                <form action="MissionUpdate" method="post">
+                <select name="Status" onchange="this.form.submit()">
+                    <option selected value ="0">Created</option>
+                    <option value = "1">In progress</option>
+                    <option value = "2">Finished</option>
                 </select>
+                    <input type="hidden" name="MissionId" value="<%=mis.get(i).getId()%>">
+                </form>
                 <% } else
                     if (mis.get(i).getId()==1){%>
-                    <select>
-                        <option>Created</option>
-                        <option selected>In progress</option>
-                        <option>Finished</option>
+                <form action="MissionUpdate" method="post">
+                    <select name="Status" onchange="this.form.submit()">
+                        <option  value ="0">Created</option>
+                        <option selected value = "1">In progress</option>
+                        <option value = "2">Finished</option>
                     </select>
+                    <input type="hidden" name="MissionId" value="<%=mis.get(i).getId()%>">
+                </form>
                 <%} else {%>
-                    <select>
-                        <option>Created</option>
-                        <option>In progress</option>
-                        <option selected>Finished</option>
+                    <form action="MissionUpdate" method="post">
+                        <select name="Status" onchange="this.form.submit()">
+                        <option value ="0">Created</option>
+                        <option selected value = "1">In progress</option>
+                        <option value = "2">Finished</option>
                     </select>
+                        <input type="hidden" name="MissionId" value="<%=mis.get(i).getId()%>">
+                    </form>
                 <% } %>
 
             </td>
@@ -64,6 +76,7 @@ if(mis.isEmpty()) {
         </tr>
    <%} %>
 </table>
+
 <% }
 }%>
 <form action="Logout" method="post">
