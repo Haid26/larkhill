@@ -20,8 +20,10 @@ import org.apache.log4j.Logger;
 
 import util.Answers;
 import util.Missions;
-@WebServlet(name = "MissionUpdate", urlPatterns = { "/MissionUpdate" })
-public class MissionUpdateServlet extends  HttpServlet{
+import util.ProdMissions;
+
+@WebServlet(name = "UpdateProdReq", urlPatterns = { "/UpdateProdReq" })
+public class ProdReqUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     static Logger logger = Logger.getLogger(LoginServlet.class);
@@ -30,44 +32,46 @@ public class MissionUpdateServlet extends  HttpServlet{
         PreparedStatement ps = null;
         ResultSet rs = null;
         String id, status;
-        id = request.getParameter("MissionId");
-        status = request.getParameter("Status");
+        id = request.getParameter("ProdMissionId");
+        status = request.getParameter("StatusReq");
         int idd, statusd;
         idd = Integer.parseInt(id);
         statusd = Integer.parseInt(status);
         logger.info("params"+id+"; "+status);
-        List<Missions> dataList = new ArrayList();
+        List<ProdMissions> dataList = new ArrayList();
         try {
-            ps = con.prepareStatement("UPDATE LARK.MISSIONS SET STATUS = ? WHERE ID = ?");
+            ps = con.prepareStatement("UPDATE LARK.ProductReq SET STATUS = ? WHERE ID = ?");
             ps.setInt(1, statusd);
             ps.setInt(2, idd);
             //ps.setString(1,status);
             //ps.setString(2,id);
             ps.executeUpdate();
             logger.info("updated mission table");
-            ps = con.prepareStatement("select * from lark.missions WHERE status <> 2 order by id");
+            ps = con.prepareStatement("SELECT lark.PRODUCTREQ.id, lark.PRODUCT.name, lark.PRODUCTREQ.AMOUNT, lark.PRODUCTREQ.STATUS FROM lark.PRODUCTREQ INNER JOIN lark.PRODUCT ON lark.PRODUCTREQ.PRODUCTID = lark.PRODUCT.id WHERE status <> 2 ORDER BY id");
             rs = ps.executeQuery();
-            while (rs.next ()){
+            while (rs.next()) {
                 //Add records into data list
-                Missions tmp = new Missions(rs.getInt("id"),rs.getString("desc"), rs.getInt("status"));
+                ProdMissions tmp = new ProdMissions(rs.getInt("id"), rs.getString("name"), rs.getInt("amount"), rs.getInt("status"));
                 dataList.add(tmp);
             }
             HttpSession session = request.getSession();
-            Answers ans = new Answers("UpdateMission");
-            session.setAttribute("Answers",ans);
-            session.setAttribute("Missions",dataList);
-            response.sendRedirect("solderhome.jsp");
+            Answers ans = new Answers("RefreshProdReq");
+            session.setAttribute("Answers", ans);
+            session.setAttribute("ProdMissions", dataList);
+            logger.info("name = " + dataList.get(0).getName() + " amount=" + dataList.get(0).getAmount());
+            response.sendRedirect("home.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("Database connection problem");
             throw new ServletException("DB Connection problem.");
-        }finally{
+        } finally {
             try {
                 rs.close();
                 ps.close();
                 //con.close();
             } catch (SQLException e) {
-                logger.error("SQLException in closing PreparedStatement or ResultSet");;
+                logger.error("SQLException in closing PreparedStatement or ResultSet");
+                ;
             }
 
         }

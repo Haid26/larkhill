@@ -106,7 +106,7 @@ public class AuthenticationFilter implements Filter {
 
                     if (user.getRole().endsWith("sci")) {
                         flag = true;
-                        if (!(requesturl.endsWith("scientisthome.jsp")||requesturl.endsWith("RefreshProd")||requesturl.endsWith("UpdateProd"))) {
+                        if (!(requesturl.endsWith("scientisthome.jsp")||requesturl.endsWith("RefreshProd")||requesturl.endsWith("UpdateProd")||requesturl.endsWith("RefreshProdReq")|| requesturl.endsWith("UpdateProdReq"))) {
                             res.sendRedirect("scientisthome.jsp");
                         } else
                             chain.doFilter(request, response);

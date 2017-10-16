@@ -1,5 +1,9 @@
 <%@ page import="util.Answers" %>
-<%@ page import="util.Product" %><%--
+<%@ page import="util.Product" %>
+<%@ page import="util.Missions" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="util.ProdMissions" %><%--
   Created by IntelliJ IDEA.
   User: Evgeniy Karpov
   Date: 12.10.2017
@@ -18,7 +22,7 @@
     <input type="submit" value="refresh data">
 </form>
     <% Answers ans = (Answers)request.getSession().getAttribute("Answers");
-if (ans.getFrom().endsWith("ogin"))
+if (ans.getFrom().endsWith("ogin")||ans.getFrom().endsWith("UpdateProdReq")||ans.getFrom().endsWith("RefreshProdReq"))
 { %>
 <b1> press refresh data to upload info about products </b1>
 <%
@@ -51,6 +55,77 @@ if (ans.getFrom().endsWith("ogin"))
     <input type="submit" value="Update data">
 </form>
 <%}%>
+
+<form action="RefreshProdReq" method="get">
+    <input type="submit" value="refresh list">
+</form>
+<%
+    if (!(ans.getFrom().endsWith("RefreshProdReq")|| ans.getFrom().endsWith("UpdateProdReq")))
+    { %>
+<b1> press refresh list to upload list of missions </b1>
+<%
+} else {
+    List<ProdMissions> mis = (ArrayList)request.getSession().getAttribute("ProdMissions");
+    if(mis.isEmpty()) {
+%>
+<b1> Mission list is empty, refresh mission list by pressing refresh list</b1>
+<%} else { %>
+
+<table>
+
+    <tr>
+        <td>ID</td>
+        <td>Product name</td>
+        <td>amount</td>
+        <td>status</td>
+    </tr>
+    <%
+        for (int i = 0; i< mis.size();i++) {
+            //System.out.println(iterator.next());
+    %>
+    <tr>
+        <td ><%=mis.get(i).getId()%></td>
+        <td ><%=mis.get(i).getName()%></td>
+        <td><%=mis.get(i).getAmount()%></td>
+        <td><% if(mis.get(i).getStatus()==0) { %>
+            <form action="UpdateProdReq" method="post">
+                <select name="StatusReq" onchange="this.form.submit()">
+                    <option selected value ="0">Created</option>
+                    <option value = "1">In progress</option>
+                    <option value = "2">Finished</option>
+                </select>
+                <input type="hidden" name="ProdMissionId" value="<%=mis.get(i).getId()%>">
+            </form>
+            <% } else
+            if (mis.get(i).getId()==1){%>
+            <form action="UpdateProdReq" method="post">
+                <select name="StatusReq" onchange="this.form.submit()">
+                    <option  value ="0">Created</option>
+                    <option selected value = "1">In progress</option>
+                    <option value = "2">Finished</option>
+                </select>
+                <input type="hidden" name="ProdMissionId" value="<%=mis.get(i).getId()%>">
+            </form>
+            <%} else {%>
+            <form action="UpdateProdReq" method="post">
+                <select name="StatusReq" onchange="this.form.submit()">
+                    <option value ="0">Created</option>
+                    <option selected value = "1">In progress</option>
+                    <option value = "2">Finished</option>
+                </select>
+                <input type="hidden" name="ProdMissionId" value="<%=mis.get(i).getId()%>">
+            </form>
+            <% } %>
+
+        </td>
+
+    </tr>
+    <%} %>
+</table>
+
+<% }
+}%>
+
 <form action="Logout" method="post">
     <input type="submit" value="Logout" >
 </form>
