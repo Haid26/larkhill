@@ -107,14 +107,7 @@ if (ans.getFrom().endsWith("ogin")||ans.getFrom().endsWith("UpdateProdReq")||ans
                 <input type="hidden" name="ProdMissionId" value="<%=mis.get(i).getId()%>">
             </form>
             <%} else {%>
-            <form action="UpdateProdReq" method="post">
-                <select name="StatusReq" onchange="this.form.submit()">
-                    <option value ="0">Created</option>
-                    <option selected value = "1">In progress</option>
-                    <option value = "2">Finished</option>
-                </select>
-                <input type="hidden" name="ProdMissionId" value="<%=mis.get(i).getId()%>">
-            </form>
+            
             <% } %>
 
         </td>

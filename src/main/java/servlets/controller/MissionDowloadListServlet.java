@@ -31,7 +31,7 @@ public class MissionDowloadListServlet extends HttpServlet{
         ResultSet rs = null;
         List<Missions> dataList = new ArrayList();
         try {
-            ps = con.prepareStatement("select * from lark.missions WHERE status <> 2 order by id");
+            ps = con.prepareStatement("select * from lark.missions  order by id");
             rs = ps.executeQuery();
             while (rs.next ()){
                 //Add records into data list

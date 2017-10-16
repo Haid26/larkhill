@@ -45,7 +45,7 @@ public class MissionUpdateServlet extends  HttpServlet{
             //ps.setString(2,id);
             ps.executeUpdate();
             logger.info("updated mission table");
-            ps = con.prepareStatement("select * from lark.missions WHERE status <> 2 order by id");
+            ps = con.prepareStatement("select * from lark.missions  order by id");
             rs = ps.executeQuery();
             while (rs.next ()){
                 //Add records into data list
@@ -56,7 +56,7 @@ public class MissionUpdateServlet extends  HttpServlet{
             Answers ans = new Answers("UpdateMission");
             session.setAttribute("Answers",ans);
             session.setAttribute("Missions",dataList);
-            response.sendRedirect("solderhome.jsp");
+            response.sendRedirect("govhome.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("Database connection problem");

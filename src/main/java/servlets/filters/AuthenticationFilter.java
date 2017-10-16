@@ -82,7 +82,7 @@ public class AuthenticationFilter implements Filter {
                     //              PARTY
                     if (user.getRole().endsWith("gov")) {
                         flag = true;
-                        if (!requesturl.endsWith("govhome.jsp")) {
+                        if (!(requesturl.endsWith("govhome.jsp")||requesturl.endsWith("RefreshProd")||requesturl.endsWith("RefreshProdReq")||requesturl.endsWith("RefreshMission")||requesturl.endsWith("AddMission")||requesturl.endsWith("ResultFeedback"))) {
                             res.sendRedirect("govhome.jsp");
                         } else
                             chain.doFilter(request, response);

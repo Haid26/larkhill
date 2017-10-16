@@ -36,7 +36,7 @@ public class SendFeedbackServlet extends HttpServlet {
         try {
             ps = con.prepareStatement("INSERT INTO lark.feedback (userID, result) VALUES (?, ?)");
             ps.setString(1, String.valueOf(user.getId()));
-            if (answer == "yes")
+            if (answer.endsWith("yes"))
                 ps.setString(2, "true");
             else
                 ps.setString(2, "false");

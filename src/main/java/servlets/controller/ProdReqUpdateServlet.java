@@ -47,7 +47,7 @@ public class ProdReqUpdateServlet extends HttpServlet {
             //ps.setString(2,id);
             ps.executeUpdate();
             logger.info("updated mission table");
-            ps = con.prepareStatement("SELECT lark.PRODUCTREQ.id, lark.PRODUCT.name, lark.PRODUCTREQ.AMOUNT, lark.PRODUCTREQ.STATUS FROM lark.PRODUCTREQ INNER JOIN lark.PRODUCT ON lark.PRODUCTREQ.PRODUCTID = lark.PRODUCT.id WHERE status <> 2 ORDER BY id");
+            ps = con.prepareStatement("SELECT lark.PRODUCTREQ.id, lark.PRODUCT.name, lark.PRODUCTREQ.AMOUNT, lark.PRODUCTREQ.STATUS FROM lark.PRODUCTREQ INNER JOIN lark.PRODUCT ON lark.PRODUCTREQ.PRODUCTID = lark.PRODUCT.id  ORDER BY id");
             rs = ps.executeQuery();
             while (rs.next()) {
                 //Add records into data list

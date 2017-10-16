@@ -31,7 +31,7 @@ public class ProductionTaskServlet extends HttpServlet {
         ResultSet rs = null;
         List<ProdMissions> dataList = new ArrayList();
         try {
-            ps = con.prepareStatement("SELECT lark.PRODUCTREQ.id, lark.PRODUCT.name, lark.PRODUCTREQ.AMOUNT, lark.PRODUCTREQ.STATUS FROM lark.PRODUCTREQ INNER JOIN lark.PRODUCT ON lark.PRODUCTREQ.PRODUCTID = lark.PRODUCT.id WHERE status <> 2 order by id");
+            ps = con.prepareStatement("SELECT lark.PRODUCTREQ.id, lark.PRODUCT.name, lark.PRODUCTREQ.AMOUNT, lark.PRODUCTREQ.STATUS FROM lark.PRODUCTREQ INNER JOIN lark.PRODUCT ON lark.PRODUCTREQ.PRODUCTID = lark.PRODUCT.id  order by id");
             rs = ps.executeQuery();
             while (rs.next ()){
                 //Add records into data list
