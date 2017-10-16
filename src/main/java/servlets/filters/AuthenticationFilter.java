@@ -118,7 +118,7 @@ public class AuthenticationFilter implements Filter {
 
                     if (user.getRole().endsWith("sel")) {
                         flag = true;
-                        if (!(requesturl.endsWith("sellerhome.jsp")|| requesturl.endsWith("RefreshProd")||requesturl.endsWith("UpdateProd"))) {
+                        if (!(requesturl.endsWith("sellerhome.jsp")|| requesturl.endsWith("RefreshProd")||requesturl.endsWith("UpdateProd")||requesturl.endsWith("AddProdReq"))) {
                             res.sendRedirect("sellerhome.jsp");
                         } else
                             chain.doFilter(request, response);

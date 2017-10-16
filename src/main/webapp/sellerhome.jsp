@@ -17,7 +17,7 @@
     <input type="submit" value="refresh data">
 </form>
 <% Answers ans = (Answers)request.getSession().getAttribute("Answers");
-    if (ans.getFrom().endsWith("ogin"))
+    if ((ans.getFrom().endsWith("ogin")||ans.getFrom().endsWith("AddProdReq")))
     { %>
 <b1> press refresh data to upload info about products </b1>
 <%
@@ -49,9 +49,17 @@
     <input type="submit" value="Update data">
 </form>
 <%}%>
+<form action="AddProdReq" method="post">
+    <Strong>Add request for laboratory</Strong><br>
+    Product type<select name="ProdType">
+        <option value="Virus">virus</option>
+        <option value="Cure">cure</option>
+    </select><br>
+    Amount<input type="text" name="amount"><br>
+    <input type="submit" value="add request"><br>
+</form>
 <form action="Logout" method="post">
     <input type="submit" value="Logout" >
-</form>
 </form>
 </body>
 </html>
