@@ -55,7 +55,7 @@
     <input type="submit" value="refresh list">
 </form>
 <%
-    if (!(ans.getFrom().endsWith("RefreshProdReq")||ans.getFrom().endsWith("RefreshMission")||ans.getFrom().endsWith("AddMission")))
+    if (!(ans.getFrom().endsWith("RefreshProdReq")))
     { %>
 <b1> press refresh list to upload list of requests </b1>
 <%

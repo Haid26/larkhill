@@ -20,7 +20,7 @@
 <b1> Are you happy</b1>
 <form action="SendFeedback" method="post">
     <p><input name="ask" type="radio" value="yes" checked>yes</p>
-    <p><input name="ask" type="radio" value="no">yes</p>
+    <p><input name="ask" type="radio" value="no">no</p>
     <input type="submit" value="Send">
 </form>
 <% }%>
