@@ -37,7 +37,8 @@ if(mis.isEmpty()) {
        <%
             for (int i = 0; i< mis.size();i++) {
                 //System.out.println(iterator.next());
-            %>
+            if(mis.get(i).getStatus()!=2){
+       %>
         <tr>
             <td ><%=mis.get(i).getId()%></td>
             <td ><%=mis.get(i).getDesc()%></td>
@@ -51,7 +52,7 @@ if(mis.isEmpty()) {
                     <input type="hidden" name="MissionId" value="<%=mis.get(i).getId()%>">
                 </form>
                 <% } else
-                    if (mis.get(i).getId()==1){%>
+                    if (mis.get(i).getStatus()==1){%>
                 <form action="MissionUpdate" method="post">
                     <select name="Status" onchange="this.form.submit()">
                         <option  value ="0">Created</option>
@@ -64,8 +65,8 @@ if(mis.isEmpty()) {
                     <form action="MissionUpdate" method="post">
                         <select name="Status" onchange="this.form.submit()">
                         <option value ="0">Created</option>
-                        <option selected value = "1">In progress</option>
-                        <option value = "2">Finished</option>
+                        <option  value = "1">In progress</option>
+                        <option selected value = "2">Finished</option>
                     </select>
                         <input type="hidden" name="MissionId" value="<%=mis.get(i).getId()%>">
                     </form>
@@ -74,7 +75,7 @@ if(mis.isEmpty()) {
             </td>
 
         </tr>
-   <%} %>
+   <%}} %>
 </table>
 
 <% }

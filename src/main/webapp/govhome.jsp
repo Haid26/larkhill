@@ -85,7 +85,7 @@
         <% if(mis.get(i).getStatus()==0) { %>
         <td>created<td>
             <% } else
-            if (mis.get(i).getId()==1){%>
+            if (mis.get(i).getStatus()==1){%>
         <td>in progress</td>
             <%} else {%>
         <td>finished</td>
@@ -131,7 +131,7 @@
         <% if(mis.get(i).getStatus()==0) { %>
         <td>created<td>
             <%} else
-            if (mis.get(i).getId()==1){%>
+            if (mis.get(i).getStatus()==1){%>
         <td>in progress</td>
         <%} else {%>
         <td>finished</td>

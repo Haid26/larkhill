@@ -82,6 +82,7 @@ if (ans.getFrom().endsWith("ogin")||ans.getFrom().endsWith("UpdateProdReq")||ans
     <%
         for (int i = 0; i< mis.size();i++) {
             //System.out.println(iterator.next());
+            if(mis.get(i).getStatus()!=2){
     %>
     <tr>
         <td ><%=mis.get(i).getId()%></td>
@@ -97,7 +98,7 @@ if (ans.getFrom().endsWith("ogin")||ans.getFrom().endsWith("UpdateProdReq")||ans
                 <input type="hidden" name="ProdMissionId" value="<%=mis.get(i).getId()%>">
             </form>
             <% } else
-            if (mis.get(i).getId()==1){%>
+            if (mis.get(i).getStatus()==1){%>
             <form action="UpdateProdReq" method="post">
                 <select name="StatusReq" onchange="this.form.submit()">
                     <option  value ="0">Created</option>
@@ -107,13 +108,20 @@ if (ans.getFrom().endsWith("ogin")||ans.getFrom().endsWith("UpdateProdReq")||ans
                 <input type="hidden" name="ProdMissionId" value="<%=mis.get(i).getId()%>">
             </form>
             <%} else {%>
-            
+            <form action="UpdateProdReq" method="post">
+                <select name="StatusReq" onchange="this.form.submit()">
+                    <option  value ="0">Created</option>
+                    <option  value = "1">In progress</option>
+                    <option selected value = "2">Finished</option>
+                </select>
+                <input type="hidden" name="ProdMissionId" value="<%=mis.get(i).getId()%>">
+            </form>
             <% } %>
 
         </td>
 
     </tr>
-    <%} %>
+    <%} }%>
 </table>
 
 <% }
